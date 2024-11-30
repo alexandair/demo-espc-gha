@@ -1,7 +1,7 @@
 # File: .github/workflows/demoazcli.yml
 name: Demo azure/cli action
 
-on: workflow_dispatch:
+on: workflow_dispatch
 
 permissions:
     id-token: write

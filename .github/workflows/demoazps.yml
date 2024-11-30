@@ -1,0 +1,42 @@
+name: Demo pwsh shell and azure/powershell action
+
+on:
+    workflow_dispatch:
+
+permissions:
+    id-token: write
+    contents: read
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Login via Az module
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_UAMI_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        enable-AzPSSession: true
+
+    - name: Run in pwsh shell
+      shell: pwsh
+      run: |
+        $env:PSModulePath -split ":"
+        ls -al /usr/share/
+        Get-Module Az -ListAvailable
+        Get-Module Microsoft.Graph -ListAvailable
+        # Get-AzContext
+        
+    - name: Run using azure/powershell action
+      uses: azure/powershell@v2
+      with:
+        inlineScript: |
+          $env:PSModulePath -split ":"
+          ls -al /usr/share/
+          Get-Module Az -ListAvailable
+          Get-Module Microsoft.Graph -ListAvailable
+          Get-AzContext
+        azPSVersion: "13.0.0"

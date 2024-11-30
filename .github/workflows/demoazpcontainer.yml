@@ -44,4 +44,4 @@ jobs:
         Get-Module Az -ListAvailable
         Connect-AzAccount -AccessToken $env:ACCESS_TOKEN -TenantId $env:AZURE_TENANT_ID -AccountId $env:AZURE_CLIENT_ID
         Get-AzContext
-        Get-AzVM -ResourceGroupName lab-rg | Select-Object Name
+        Get-AzVM -ResourceGroupName espc2024-rg | Select-Object Name
